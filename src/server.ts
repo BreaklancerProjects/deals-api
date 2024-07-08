@@ -1,4 +1,4 @@
-console.log(`Executing code in ${__filename}`);
+console.log(`Executing code in server.ts`);
 
 import './config/dotenv';
 import { connectToDB } from './config/db';

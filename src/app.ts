@@ -1,4 +1,4 @@
-console.log(`Executing code in ${__filename}`);
+console.log(`Executing code in app.ts`);
 import path from 'path';
 import * as OpenApiValidator from 'express-openapi-validator';
 import { connector } from 'swagger-routes-express';
@@ -21,60 +21,6 @@ enum ApiVersions {
 
 interface HasName {
   name?: string;
-}
-
-function setExpressOpenApiConfiguration(
-  app: Express,
-  yamlSpecFilePath: string,
-  controllers: Record<string, Handler>,
-  apiDocPath: string,
-): void {
-  /**
-   * Setup OpenAPI validator.
-   */
-  app.use(
-    OpenApiValidator.middleware({
-      apiSpec: yamlSpecFilePath,
-      validateRequests: true,
-      validateResponses: true,
-      validateFormats: true,
-      fileUploader: false,
-      coerceTypes: false,
-      validateSecurity: false,
-      ignorePaths: /^\/v[0-9]+\/(api-doc(\/.*)?)?$/,
-    }),
-  );
-
-  controllers;
-  /**
-   * Setup OpenAPI routing to controllers.
-   */
-  const openApiDocument = YAML.load(yamlSpecFilePath) as object;
-  const connect = connector(controllers, openApiDocument, {
-    onCreateRoute: (method: string, descriptor: unknown[]) => {
-      const padNum = 7; // length of the longest http method
-      console.log(
-        `${method.padEnd(padNum).toUpperCase()}: ${String(descriptor[0])} : ${(descriptor[1] as HasName).name}`,
-      );
-    },
-  });
-
-  connect(app);
-
-  if (isDevelopmentMode())
-    /**
-     * Render OpenAPI UI specification to /api-doc route.
-     */
-    app.use(apiDocPath, swaggerUI.serveFiles(openApiDocument), swaggerUI.setup(openApiDocument));
-}
-
-function setUpV1(): Express {
-  console.log('setting up v1');
-  // Create Express server
-  const app = express();
-  setExpressOpenApiConfiguration(app, path.join(__dirname, 'backend-openapi-v1.yaml'), controllers, '/v1/api-doc');
-
-  return app;
 }
 
 export function setupMainExpressApp(): Express {
@@ -122,4 +68,58 @@ export function setupMainExpressApp(): Express {
 
   app.use(errorHandler);
   return app;
+}
+
+function setUpV1(): Express {
+  console.log('setting up v1');
+  // Create Express server
+  const app = express();
+  setExpressOpenApiConfiguration(app, path.join(__dirname, 'backend-openapi-v1.yaml'), controllers, '/v1/api-doc');
+
+  return app;
+}
+
+function setExpressOpenApiConfiguration(
+  app: Express,
+  yamlSpecFilePath: string,
+  controllers: Record<string, Handler>,
+  apiDocPath: string,
+): void {
+  /**
+   * Setup OpenAPI validator.
+   */
+  app.use(
+    OpenApiValidator.middleware({
+      apiSpec: yamlSpecFilePath,
+      validateRequests: true,
+      validateResponses: true,
+      validateFormats: true,
+      fileUploader: false,
+      coerceTypes: false,
+      validateSecurity: false,
+      ignorePaths: /^\/v[0-9]+\/(api-doc(\/.*)?)?$/,
+    }),
+  );
+
+  controllers;
+  /**
+   * Setup OpenAPI routing to controllers.
+   */
+  const openApiDocument = YAML.load(yamlSpecFilePath) as object;
+  const connect = connector(controllers, openApiDocument, {
+    onCreateRoute: (method: string, descriptor: unknown[]) => {
+      const padNum = 7; // length of the longest http method
+      console.log(
+        `${method.padEnd(padNum).toUpperCase()}: ${String(descriptor[0])} : ${(descriptor[1] as HasName).name}`,
+      );
+    },
+  });
+
+  connect(app);
+
+  // if (isDevelopmentMode())
+  /**
+   * Render OpenAPI UI specification to /api-doc route.
+   */
+  app.use(apiDocPath, swaggerUI.serveFiles(openApiDocument), swaggerUI.setup(openApiDocument));
 }
