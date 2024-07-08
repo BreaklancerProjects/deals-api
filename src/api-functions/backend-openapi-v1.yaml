@@ -1,0 +1,542 @@
+---
+openapi: 3.0.2
+info:
+  title: Deals API
+  version: 1.0.0
+  description: Deals API
+  contact:
+    email: jmechevarria2015@gmail.com
+
+servers:
+  - url: /v1
+
+paths:
+  # /login:
+  #   post:
+  #     tags:
+  #       - Auth
+  #     summary: Authenticates a deal in the system.
+  #     operationId: login
+  #     responses:
+  #       200:
+  #         description: OK
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: "#/components/schemas/LoginResponseDTO"
+  #       400:
+  #         $ref: "#/components/responses/bad_request"
+  #       401:
+  #         $ref: "#/components/responses/unauthorized"
+  #       403:
+  #         $ref: "#/components/responses/forbidden"
+  #       404:
+  #         $ref: "#/components/responses/not_found"
+  #       429:
+  #         $ref: "#/components/responses/temporary_error"
+  #       500:
+  #         $ref: "#/components/responses/internal_error"
+  #       502:
+  #         $ref: "#/components/responses/temporary_error"
+  #       503:
+  #         $ref: "#/components/responses/temporary_error"
+  #       504:
+  #         $ref: "#/components/responses/temporary_error"
+  #       4XX:
+  #         $ref: "#/components/responses/internal_error"
+  #       5XX:
+  #         $ref: "#/components/responses/internal_error"
+  #     requestBody:
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: "#/components/schemas/LoginRequestDTO"
+  /deals:
+    get:
+      tags:
+        - Deals
+      summary: Retrieves some deals, if any.
+      operationId: getDeals
+      description: Retrieves a paginated list of deals.
+      parameters:
+        - in: query
+          name: client
+          schema:
+            type: string
+          description: The client of the deal
+        - in: query
+          name: page
+          schema:
+            type: number
+            minimum: 1
+          description: Page to be retrieved during pagination
+        - in: query
+          name: pageSize
+          schema:
+            type: number
+            minimum: 1
+            maximum: 100
+          description: Amount of items to be retrieved per page
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DealsResponseDTO"
+        400:
+          $ref: "#/components/responses/bad_request"
+        401:
+          $ref: "#/components/responses/unauthorized"
+        403:
+          $ref: "#/components/responses/forbidden"
+        404:
+          $ref: "#/components/responses/not_found"
+        429:
+          $ref: "#/components/responses/temporary_error"
+        500:
+          $ref: "#/components/responses/internal_error"
+        502:
+          $ref: "#/components/responses/temporary_error"
+        503:
+          $ref: "#/components/responses/temporary_error"
+        504:
+          $ref: "#/components/responses/temporary_error"
+        4XX:
+          $ref: "#/components/responses/internal_error"
+        5XX:
+          $ref: "#/components/responses/internal_error"
+
+    post:
+      tags:
+        - Deals
+      summary: Creates a deal.
+      operationId: createDeal
+      description: Creates a deal.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DealCreateDTO"
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DealResponseDTO"
+        400:
+          $ref: "#/components/responses/bad_request"
+        401:
+          $ref: "#/components/responses/unauthorized"
+        403:
+          $ref: "#/components/responses/forbidden"
+        404:
+          $ref: "#/components/responses/not_found"
+        429:
+          $ref: "#/components/responses/temporary_error"
+        500:
+          $ref: "#/components/responses/internal_error"
+        502:
+          $ref: "#/components/responses/temporary_error"
+        503:
+          $ref: "#/components/responses/temporary_error"
+        504:
+          $ref: "#/components/responses/temporary_error"
+        4XX:
+          $ref: "#/components/responses/internal_error"
+        5XX:
+          $ref: "#/components/responses/internal_error"
+
+  /deals/{id}:
+    get:
+      tags:
+        - Deals
+      summary: Retrieves a deal.
+      operationId: getDeal
+      description: Retrieves a deal.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: The id of the deal
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DealResponseDTO"
+        400:
+          $ref: "#/components/responses/bad_request"
+        401:
+          $ref: "#/components/responses/unauthorized"
+        403:
+          $ref: "#/components/responses/forbidden"
+        404:
+          $ref: "#/components/responses/not_found"
+        429:
+          $ref: "#/components/responses/temporary_error"
+        500:
+          $ref: "#/components/responses/internal_error"
+        502:
+          $ref: "#/components/responses/temporary_error"
+        503:
+          $ref: "#/components/responses/temporary_error"
+        504:
+          $ref: "#/components/responses/temporary_error"
+        4XX:
+          $ref: "#/components/responses/internal_error"
+        5XX:
+          $ref: "#/components/responses/internal_error"
+
+    patch:
+      tags:
+        - Deals
+      summary: Updates a deal.
+      operationId: patchDeal
+      description: Updates some or all fields in a deal.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: The id of the deal
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DealPatchDTO"
+      responses:
+        200:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DealResponseDTO"
+        400:
+          $ref: "#/components/responses/bad_request"
+        401:
+          $ref: "#/components/responses/unauthorized"
+        403:
+          $ref: "#/components/responses/forbidden"
+        404:
+          $ref: "#/components/responses/not_found"
+        429:
+          $ref: "#/components/responses/temporary_error"
+        500:
+          $ref: "#/components/responses/internal_error"
+        502:
+          $ref: "#/components/responses/temporary_error"
+        503:
+          $ref: "#/components/responses/temporary_error"
+        504:
+          $ref: "#/components/responses/temporary_error"
+        4XX:
+          $ref: "#/components/responses/internal_error"
+        5XX:
+          $ref: "#/components/responses/internal_error"
+
+    delete:
+      tags:
+        - Deals
+      summary: Deletes a deal.
+      operationId: deleteDeal
+      description: Deletes a deal.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: The id of the deal
+      responses:
+        204:
+          description: OK
+        400:
+          $ref: "#/components/responses/bad_request"
+        401:
+          $ref: "#/components/responses/unauthorized"
+        403:
+          $ref: "#/components/responses/forbidden"
+        404:
+          $ref: "#/components/responses/not_found"
+        429:
+          $ref: "#/components/responses/temporary_error"
+        500:
+          $ref: "#/components/responses/internal_error"
+        502:
+          $ref: "#/components/responses/temporary_error"
+        503:
+          $ref: "#/components/responses/temporary_error"
+        504:
+          $ref: "#/components/responses/temporary_error"
+        4XX:
+          $ref: "#/components/responses/internal_error"
+        5XX:
+          $ref: "#/components/responses/internal_error"
+
+tags:
+  # - name: Auth
+  #   description: Authentication and authorization resources.
+  - name: Deals
+    description: This represents a deal in the system.
+
+components:
+  # securitySchemes:
+  #   bearerAuth:
+  #     type: http
+  #     scheme: bearer
+  #     bearerFormat: JWT
+  #     description: A token that is tied to a particular deal.
+  schemas:
+    DealCreateDTO:
+      title: Deal create DTO
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          $ref: "#/components/schemas/Name"
+        client:
+          $ref: "#/components/schemas/Name"
+      required:
+        - name
+        - client
+
+    DealResponseDTO:
+      title: Deal response DTO
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          maxLength: 64
+        name:
+          $ref: "#/components/schemas/Name"
+        client:
+          $ref: "#/components/schemas/Name"
+      required:
+        - id
+        - name
+        - client
+
+    DealsResponseDTO:
+      title: Deals response DTO
+      type: object
+      additionalProperties: false
+      properties:
+        deals:
+          type: array
+          items:
+            $ref: "#/components/schemas/DealResponseDTO"
+        total:
+          type: number
+          minimum: 0
+      required:
+        - deals
+        - total
+
+    DealPatchDTO:
+      title: Deal patch DTO
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          $ref: "#/components/schemas/Name"
+        client:
+          $ref: "#/components/schemas/Name"
+
+    # LoginRequestDTO:
+    #   title: Login request DTO
+    #   type: object
+    #   additionalProperties: false
+    #   properties:
+    #     username:
+    #       $ref: "#/components/schemas/Username"
+    #     password:
+    #       $ref: "#/components/schemas/Password"
+    #   required: [username]
+
+    # LoginResponseDTO:
+    #   title: Login response DTO
+    #   type: object
+    #   additionalProperties: false
+    #   properties:
+    #     token:
+    #       $ref: "#/components/schemas/AuthToken"
+    #     name:
+    #       $ref: "#/components/schemas/Name"
+    #     lastName:
+    #       $ref: "#/components/schemas/Name"
+    #     lastName2:
+    #       $ref: "#/components/schemas/Name"
+    #   required: [token, name]
+
+    # Username:
+    #   title: Username
+    #   type: string
+    #   pattern: ^\S{3,255}$
+    #   example: username
+
+    # Password:
+    #   title: Password
+    #   type: string
+    #   pattern: ^\S{8,24}$
+    #   example: password
+
+    # Role:
+    #   title: Role
+    #   type: string
+    #   enum: [deal, admin]
+    #   example: deal
+
+    Name:
+      title: Name
+      type: string
+      pattern: ^.{1,1000}$
+      example: name
+
+    # Text:
+    #   title: Text
+    #   type: string
+    #   pattern: ^.+$
+
+    # Email:
+    #   description: Email address.
+    #   example: deal@example.invalid
+    #   type: string
+    #   format: email
+
+    # Phone:
+    #   description: Phone number.
+    #   type: string
+    #   example: 11231112233
+    #   pattern: ^\+?\d{4,100}$
+    #   maxLength: 256
+
+    # AuthToken:
+    #   type: string
+    #   description: Any single-line string without space-characters
+    #   pattern: ^([^\s])+$
+
+    Error:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+        message:
+          type: string
+        stack:
+          type: string
+      required: [name, message]
+
+    ErrorResponse:
+      type: object
+      additionalProperties: false
+      description: |
+        Describes the error in greater detail.
+        This will typically be null in a production use case and should only be used for debugging purposes.
+      properties:
+        id:
+          title: identifier
+          type: string
+          maxLength: 256
+          pattern: ^.*$
+          example: 1b8cf815-bdfe-4628-a8bc-86d8e468ba43
+          description: |
+            An id that can be used to locate this error for tracing and
+            forensics. The internal format of this identifier is undefined,
+            please treat it as an opaque string.
+        message:
+          title: description
+          type: string
+          minLength: 1
+          maxLength: 4096
+          pattern: .*
+          description: |
+            A brief description of what went wrong to help with debugging. May
+            not appear in production releases, do not rely on the message.
+        type:
+          type: string
+          pattern: ^.*$
+          maxLength: 1024
+          description: This is the type of exception that was raised if known.
+        stack:
+          type: string
+          minLength: 0
+          maxLength: 2147483647
+          pattern: ^[\S\n\t\v ]*$
+          description: |
+            This is the text that represents the frame information for
+            this portion of the stack trace. Note that this is language
+            specific, and may contain any information that is relevant.
+        caused_by:
+          type: array
+          maxItems: 1000
+          description: A list of validation issues that were found when processing the request.
+          items:
+            $ref: "#/components/schemas/Error"
+      required:
+        - id
+        - message
+        - type
+
+  responses:
+    not_found:
+      description: The requested entity is not found or you do not have authorization to access it.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    forbidden:
+      description: The authenticated deal of the API doesn't have permission.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    unauthorized:
+      description: |
+        The request requires authentication and either you are not authenticated
+        or the provided authentication is not valid.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    temporary_error:
+      description: |
+        There have been too many requests or the backend service is not
+        reachable. This will likely be resolved over time, and the request can
+        be retried in the future.
+      headers:
+        Retry-After:
+          description: If provided, this will give you a hint of when to call the API again.
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            maximum: 86400
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    internal_error:
+      description: |
+        There was an error processing the request. This may be a temporary
+        issue, so a retry at a later time may succeed.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    bad_request:
+      description: The request was malformed. Sending the same request will generally fail again.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+# security:
+#   - bearerAuth: []
