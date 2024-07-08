@@ -10,7 +10,7 @@
     "build": "npm run lint && npm run build-ts && npm run copy-static-assets",
     "build-local": "npm run eslint && (npm run format-check || npm run format-fix) && npm run build-ts && npm run copy-static-assets",
     "build-ts": "tsc --project tsconfig.build.json",
-    "clean": "npx del-cli dist .tsbuildinfo",
+    "clean": "npx del-cli dist",
     "clean-build": "npm run clean && npm i && npm run build",
     "copy-static-assets": "ts-node copyStaticAssets.ts",
     "depcheck": "npx depcheck",

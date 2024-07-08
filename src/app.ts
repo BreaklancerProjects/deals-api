@@ -1,19 +1,19 @@
 console.log(`Executing code in ${__filename}`);
-import * as path from 'path';
+import path from 'path';
 import * as OpenApiValidator from 'express-openapi-validator';
 import { connector } from 'swagger-routes-express';
-import * as swaggerUI from 'swagger-ui-express';
-import * as YAML from 'yamljs';
+import swaggerUI from 'swagger-ui-express';
+import YAML from 'yamljs';
 import { getCorsOrigins, getPort, isDevelopmentMode } from './config/environment';
-// import * as controllers from './controllers/index';
+// import controllers from './controllers/index';
 import * as controllers from './controllers';
-import * as express from 'express';
+import express from 'express';
 import { Express, Handler } from 'express';
 import { errorHandler } from './middlewares/ErrorMiddleware';
 import { AuthenticationMiddleware } from './middlewares/AuthMiddleware';
 import { BadRequestError } from './errors/BadRequestError';
-import * as lusca from 'lusca';
-import * as cors from 'cors';
+import lusca from 'lusca';
+import cors from 'cors';
 
 enum ApiVersions {
   v1 = 'v1',

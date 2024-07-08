@@ -23,7 +23,7 @@ export class DealsRepository {
       await ConnectionsManager.connect();
       const { filters, pagination } = opts;
       pagination.page = pagination.page >= 1 ? pagination.page : 1;
-      pagination.pageSize = pagination.pageSize >= 1 && pagination.pageSize <= 100 ? pagination.pageSize : 1;
+      pagination.pageSize = pagination.pageSize >= 1 && pagination.pageSize <= 100 ? pagination.pageSize : 100;
 
       return await this.dealModel
         .find(JSON.parse(JSON.stringify(filters)))
