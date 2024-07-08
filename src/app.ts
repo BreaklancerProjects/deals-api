@@ -101,7 +101,6 @@ function setExpressOpenApiConfiguration(
     }),
   );
 
-  controllers;
   /**
    * Setup OpenAPI routing to controllers.
    */
