@@ -1,0 +1,20 @@
+[functions]
+  external_node_modules = ["express"]
+  node_bundler = "esbuild"
+  included_files = ["src/api-functions/backend-openapi-v1.yaml"]
+  directory = "src/api-functions/"
+
+[[redirects]]
+  force = true
+  from = "/v1/*"
+  status = 200
+  to = "/.netlify/functions/api/:splat"
+
+[[redirects]]
+  force = true
+  from = "/src/*"
+  status = 500
+  to = "/"
+
+[build]
+  command = "echo Building Functions"
