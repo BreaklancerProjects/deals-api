@@ -3,11 +3,11 @@
   node_bundler = "esbuild"
   included_files = [
     "src/api-functions/backend-openapi-v1.yaml",
-    "node_modules/swagger-ui-dist/swagger-ui.css",
-    "node_modules/swagger-ui-dist/swagger-ui-bundle.js",
-    "node_modules/swagger-ui-dist/swagger-ui-standalone-preset.js",
-    "node_modules/swagger-ui-dist/favicon-16x16.png",
-    "node_modules/swagger-ui-dist/favicon-32x32.png"
+    "src/api-functions/swagger-ui.css",
+    "src/api-functions/swagger-ui-bundle.js",
+    "src/api-functions/swagger-ui-standalone-preset.js",
+    "src/api-functions/favicon-16x16.png",
+    "src/api-functions/favicon-32x32.png"
   ]
   directory = "src/api-functions/"
 
