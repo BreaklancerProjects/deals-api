@@ -24,4 +24,4 @@
   to = "/"
 
 [build]
-  command = "echo Building Functions"
+  command = "npm run copy-functions-resources"
